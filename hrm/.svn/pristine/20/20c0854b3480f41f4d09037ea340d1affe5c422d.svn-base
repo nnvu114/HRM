@@ -1,0 +1,190 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.minori.hrm.models;
+
+import java.io.Serializable;
+import java.sql.Timestamp;
+import java.util.List;
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+/**
+ *
+ * @author Admin
+ */
+@Entity
+@Table(name = "evl_evaluation_details")
+@NamedQueries({
+    @NamedQuery(name = "EvlEvaluationDetails.findAll", query = "SELECT e FROM EvlEvaluationDetails e")})
+public class EvlEvaluationDetails implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    
+    @Column(name = "evaluation_detail_id")
+    private Integer evaluationDetailId;
+    
+    @Column(name = "evaluator")
+    private String evaluator;
+    
+    @Column(name = "evaluation_result")
+    private String evaluationResult;
+    
+    @Lob
+    @Column(name = "evaluation_des")
+    private String evaluationDes;
+    @Column(name = "created_date")
+    private Timestamp createdDate;
+    @Column(name = "updated_date")
+    private Timestamp updatedDate;
+    
+    @Column(name = "created_by")
+    private String createdBy;
+    @Column(name = "updated_by")
+    private String updatedBy;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "evlEvaluationDetails", fetch = FetchType.LAZY)
+    private List<EvlEvaluationResult> evlEvaluationResultList;
+    @JoinColumn(name = "evaluation_id", referencedColumnName = "evaluation_id")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private EvlEvaluation evlEvaluation;
+
+    public EvlEvaluationDetails() {
+    }
+
+    public EvlEvaluationDetails(Integer evaluationDetailId) {
+        this.evaluationDetailId = evaluationDetailId;
+    }
+
+    public EvlEvaluationDetails(Integer evaluationDetailId, String evaluator, String evaluationResult, String evaluationDes, String createdBy) {
+        this.evaluationDetailId = evaluationDetailId;
+        this.evaluator = evaluator;
+        this.evaluationResult = evaluationResult;
+        this.evaluationDes = evaluationDes;
+        this.createdBy = createdBy;
+    }
+
+    public Integer getEvaluationDetailId() {
+        return evaluationDetailId;
+    }
+
+    public void setEvaluationDetailId(Integer evaluationDetailId) {
+        this.evaluationDetailId = evaluationDetailId;
+    }
+
+    public String getEvaluator() {
+        return evaluator;
+    }
+
+    public void setEvaluator(String evaluator) {
+        this.evaluator = evaluator;
+    }
+
+    public String getEvaluationResult() {
+        return evaluationResult;
+    }
+
+    public void setEvaluationResult(String evaluationResult) {
+        this.evaluationResult = evaluationResult;
+    }
+
+    public String getEvaluationDes() {
+        return evaluationDes;
+    }
+
+    public void setEvaluationDes(String evaluationDes) {
+        this.evaluationDes = evaluationDes;
+    }
+
+    public Timestamp getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Timestamp createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public Timestamp getUpdatedDate() {
+        return updatedDate;
+    }
+
+    public void setUpdatedDate(Timestamp updatedDate) {
+        this.updatedDate = updatedDate;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public String getUpdatedBy() {
+        return updatedBy;
+    }
+
+    public void setUpdatedBy(String updatedBy) {
+        this.updatedBy = updatedBy;
+    }
+
+    public List<EvlEvaluationResult> getEvlEvaluationResultList() {
+        return evlEvaluationResultList;
+    }
+
+    public void setEvlEvaluationResultList(List<EvlEvaluationResult> evlEvaluationResultList) {
+        this.evlEvaluationResultList = evlEvaluationResultList;
+    }
+
+    public EvlEvaluation getEvlEvaluation() {
+        return evlEvaluation;
+    }
+
+    public void setEvlEvaluation(EvlEvaluation evlEvaluation) {
+        this.evlEvaluation = evlEvaluation;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (evaluationDetailId != null ? evaluationDetailId.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof EvlEvaluationDetails)) {
+            return false;
+        }
+        EvlEvaluationDetails other = (EvlEvaluationDetails) object;
+        if ((this.evaluationDetailId == null && other.evaluationDetailId != null) || (this.evaluationDetailId != null && !this.evaluationDetailId.equals(other.evaluationDetailId))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "hrm.EvlEvaluationDetails[ evaluationDetailId=" + evaluationDetailId + " ]";
+    }
+    
+}

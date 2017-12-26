@@ -1,0 +1,19 @@
+package com.minori.hrm.services;
+
+
+import com.minori.hrm.models.Users;
+
+public interface UserService {
+
+	Users findByUserName(String username);
+
+	Users saveUser(Users user);
+
+	int updateUsername(String username, int id);
+
+	int updatePassword(String password, int id);
+
+	int updateEnabled(boolean enabled, int id);
+
+	void deleteUserById(int id);
+}

@@ -1,0 +1,106 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.minori.hrm.models;
+
+import java.io.Serializable;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+
+/**
+ *
+ * @author Admin
+ */
+@Entity
+@Table(name = "master_position")
+@NamedQueries({
+    @NamedQuery(name = "MasterPosition.findAll", query = "SELECT m FROM MasterPosition m")})
+public class MasterPosition implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    
+    @Column(name = "position_master_id")
+    private Integer positionMasterId;
+    
+    @Column(name = "position_name")
+    private String positionName;
+    
+    @Lob
+    @Column(name = "position_des")
+    private String positionDes;
+
+    public MasterPosition() {
+    }
+
+    public MasterPosition(Integer positionMasterId) {
+        this.positionMasterId = positionMasterId;
+    }
+
+    public MasterPosition(Integer positionMasterId, String positionName, String positionDes) {
+        this.positionMasterId = positionMasterId;
+        this.positionName = positionName;
+        this.positionDes = positionDes;
+    }
+
+    public Integer getPositionMasterId() {
+        return positionMasterId;
+    }
+
+    public void setPositionMasterId(Integer positionMasterId) {
+        this.positionMasterId = positionMasterId;
+    }
+
+    public String getPositionName() {
+        return positionName;
+    }
+
+    public void setPositionName(String positionName) {
+        this.positionName = positionName;
+    }
+
+    public String getPositionDes() {
+        return positionDes;
+    }
+
+    public void setPositionDes(String positionDes) {
+        this.positionDes = positionDes;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (positionMasterId != null ? positionMasterId.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof MasterPosition)) {
+            return false;
+        }
+        MasterPosition other = (MasterPosition) object;
+        if ((this.positionMasterId == null && other.positionMasterId != null) || (this.positionMasterId != null && !this.positionMasterId.equals(other.positionMasterId))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "hrm.MasterPosition[ positionMasterId=" + positionMasterId + " ]";
+    }
+    
+}

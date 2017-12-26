@@ -1,0 +1,67 @@
+package com.minori.hrm.services.impl;
+
+
+import com.minori.hrm.dto.CreateTimeOffDto;
+import com.minori.hrm.dto.EditTimeOffDto;
+import com.minori.hrm.exception.HrmException;
+import com.minori.hrm.form.TimeOffForm;
+
+import org.aspectj.apache.bcel.classfile.Code;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import com.minori.hrm.converter.TimeOffConverter;
+import com.minori.hrm.models.User;
+import com.minori.hrm.models.WktLeaveRequest;
+import com.minori.hrm.repositorys.UserRepository;
+import com.minori.hrm.repositorys.WktLeaveRequestRepository;
+import com.minori.hrm.services.TimeOffService;
+import com.minori.hrm.utils.CommonFunction;
+import com.minori.hrm.utils.Constant;
+import com.minori.hrm.utils.HrmStatusCode;
+
+import java.util.Optional;
+
+@Component
+public class TimeOffServiceImpl implements TimeOffService{
+	
+	@Autowired
+	private UserRepository userRepository;
+	
+	@Autowired
+	private TimeOffConverter timeOffConverter;
+	
+	@Autowired
+	private WktLeaveRequestRepository wktleaveRequestRepository;
+	
+	@Override
+	public Optional<CreateTimeOffDto> createTimeOff(TimeOffForm request){
+		User user = userRepository.findByUsername(CommonFunction.getCurrentAcount().orElseThrow(()-> new HrmException(HrmStatusCode.ERROR)));
+		User userApprrove = request.getStatus()==Constant.TIME_OFF_DRAFT? null:userRepository.findOne(request.getAppraiserId());
+		if (null == userApprrove && request.getStatus() == Constant.TIME_OFF_SUBMIT) {
+			throw new HrmException(HrmStatusCode.ERROR);
+		}
+		WktLeaveRequest result = wktleaveRequestRepository.save(timeOffConverter.convertEntity(request, user,userApprrove));
+		Optional<CreateTimeOffDto> response = timeOffConverter.convertCreateTimeOffResponse(result);
+		return response;
+	}
+	
+	public Optional<EditTimeOffDto> editTimeOff(TimeOffForm request) {
+		WktLeaveRequest check = wktleaveRequestRepository.findOne(request.getLeaveRequestId());
+		if (null==check || check.getStatus() == Constant.TIME_OFF_SUBMIT) {
+			throw new HrmException(HrmStatusCode.ERROR);
+		}
+		User user = userRepository.findByUsername(CommonFunction.getCurrentAcount().orElseThrow(()-> new HrmException(HrmStatusCode.ERROR)));
+		User userApprrove = request.getStatus()==Constant.TIME_OFF_DRAFT? null:userRepository.findOne(request.getAppraiserId());
+		if (null == userApprrove && request.getStatus() == Constant.TIME_OFF_SUBMIT) {
+			throw new HrmException(HrmStatusCode.ERROR);
+		}
+		WktLeaveRequest result = wktleaveRequestRepository.save(timeOffConverter.convertEditTimeOffEntity(check,request, user, userApprrove));
+		Optional<EditTimeOffDto> response = timeOffConverter.convertEditTimeOffResponse(result);
+		return response;
+	}
+
+}

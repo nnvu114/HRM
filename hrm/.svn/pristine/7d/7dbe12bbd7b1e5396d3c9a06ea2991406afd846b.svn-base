@@ -1,0 +1,11 @@
+package com.minori.hrm.services;
+
+import com.minori.hrm.models.EpmGroup;
+
+public interface GroupService {
+
+	EpmGroup saveGroup(EpmGroup group);
+
+	
+	EpmGroup findOneGroup(Integer groupId);
+}

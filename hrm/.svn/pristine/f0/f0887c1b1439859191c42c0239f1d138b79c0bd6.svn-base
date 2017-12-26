@@ -1,0 +1,26 @@
+package com.minori.hrm.services.impl;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.minori.hrm.models.EpmGroup;
+import com.minori.hrm.repositorys.GroupRepository;
+import com.minori.hrm.services.GroupService;
+
+@Service
+public class GroupServiceImpl implements GroupService {
+
+	@Autowired
+	private GroupRepository groupRepository;
+
+	@Override
+	public EpmGroup saveGroup(EpmGroup group) {
+		return groupRepository.save(group);
+	}
+
+	@Override
+	public EpmGroup findOneGroup(Integer groupId) {
+		return groupRepository.findByGroupId(groupId);
+	}
+
+}

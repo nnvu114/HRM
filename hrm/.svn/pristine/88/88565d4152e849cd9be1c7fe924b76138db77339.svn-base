@@ -1,0 +1,13 @@
+package com.minori.hrm.services;
+
+import com.minori.hrm.dto.CreateTimeOffDto;
+import com.minori.hrm.form.CreateTimeOffForm;
+
+import java.util.Optional;
+
+
+public interface TimeOffService {
+	
+	Optional<CreateTimeOffDto> createTimeOff(CreateTimeOffForm request);
+
+}

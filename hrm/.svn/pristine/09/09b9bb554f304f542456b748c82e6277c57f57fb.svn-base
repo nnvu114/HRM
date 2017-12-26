@@ -1,0 +1,11 @@
+package com.minori.hrm.services;
+
+import com.minori.hrm.models.WktLeaveRequest;
+import com.minori.hrm.request.CreateTimeOffRequest;
+import com.minori.hrm.response.CreateTimeOffResponse;
+
+public interface TimeOffService {
+	
+	WktLeaveRequest createTimeOff(CreateTimeOffRequest request);
+
+}

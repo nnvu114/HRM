@@ -1,0 +1,6 @@
+HRM.NotEmpty=This field is required.
+HRM.Size.employeeForm.userName=Please use between 6 and 32 characters.
+HRM.Duplicate.employeeForm.userName=Someone already has that username.
+HRM.Duplicate.employeeForm.email=Someone already has that email.
+HRM.Size.employeeForm.password=Try one with at least 6 characters.
+HRM.Diff.userForm.passwordConfirm=These passwords don't match.

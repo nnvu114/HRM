@@ -1,0 +1,26 @@
+package com.minori.hrm.validators;
+
+
+import com.minori.hrm.exception.HrmException;
+import com.minori.hrm.form.CreateTimeOffForm;
+import com.minori.hrm.utils.HrmStatusCode;
+
+import org.springframework.stereotype.Component;
+
+@Component
+public class TimeOffValidate{
+	
+	public void validateCreateTimeOff(CreateTimeOffForm request) throws HrmException {
+		
+		if (null == request.getRequestType()) {
+			throw new HrmException(HrmStatusCode.ERROR);
+		}
+		if (null == request.getStartLeaveDate() || null == request.getEndLeaveDate() || request.getStartLeaveDate() > request.getEndLeaveDate()) {
+			throw new HrmException(HrmStatusCode.ERROR);
+		}
+		if (null == request.getReasonDes() || null == request.getAppraiserId()) {
+			throw new HrmException(HrmStatusCode.ERROR);
+		} 
+	}
+	
+}

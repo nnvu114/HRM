@@ -1,0 +1,21 @@
+package com.minori.hrm.utils;
+
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+
+public class CommonFunction {
+	
+	/**
+	 * The get current user
+	 * @return
+	 */
+	public static final String getCurrentUser() {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		if (!(authentication instanceof AnonymousAuthenticationToken)) {
+			String currentUserName = authentication.getName();
+			return currentUserName;
+		}
+		return null;
+	}
+}

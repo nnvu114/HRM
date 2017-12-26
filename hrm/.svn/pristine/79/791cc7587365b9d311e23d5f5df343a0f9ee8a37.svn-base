@@ -1,0 +1,32 @@
+package com.minori.hrm.controllers;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.minori.hrm.constant.JsonResult;
+import com.minori.hrm.models.AccountCredentials;
+import com.minori.hrm.models.WktLeaveRequest;
+import com.minori.hrm.request.CreateTimeOffRequest;
+import com.minori.hrm.services.TimeOffService;
+
+@RestController
+@RequestMapping("/timeOff")
+public class TimeOffController extends AbStractController {
+
+	@Autowired
+	private TimeOffService service;
+	
+	@PostMapping(value="/create")
+	@PreAuthorize("hasAuthority('ROLE_ADMIN') or hasAuthority('ROLE_USER')")
+	public JsonResult create(@RequestBody CreateTimeOffRequest request,Authentication auth) {
+		String userName = (String) auth.getPrincipal();
+		request.setUserName(userName);
+		WktLeaveRequest result = service.createTimeOff(request);
+		return toSuccess(result);
+	}
+}

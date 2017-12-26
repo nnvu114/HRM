@@ -1,0 +1,187 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.minori.hrm.models;
+
+import java.io.Serializable;
+import java.sql.Timestamp;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+/**
+ *
+ * @author Admin
+ */
+@Entity
+@Table(name = "wkt_working_time_request")
+@NamedQueries({
+    @NamedQuery(name = "WktWorkingTimeRequest.findAll", query = "SELECT w FROM WktWorkingTimeRequest w")})
+public class WktWorkingTimeRequest implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    
+    @Column(name = "working_time_request_id")
+    private Integer workingTimeRequestId;
+    
+    @Column(name = "approval_id")
+    private int approvalId;
+    
+    @Column(name = "first_check_in")
+    private String firstCheckIn;
+    
+    @Column(name = "last_check_out")
+    private String lastCheckOut;
+    @Column(name = "status")
+    private Integer status;
+    @Column(name = "created_date")
+    
+    private Timestamp createdDate;
+    @Column(name = "updated_date")
+    
+    private Timestamp updatedDate;
+    
+    @Column(name = "created_by")
+    private String createdBy;
+    @Column(name = "updated_by")
+    private String updatedBy;
+    @JoinColumn(name = "working_time_id", referencedColumnName = "working_time_id")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private WktWorkingTime wktWorkingTime;
+
+    public WktWorkingTimeRequest() {
+    }
+
+    public WktWorkingTimeRequest(Integer workingTimeRequestId) {
+        this.workingTimeRequestId = workingTimeRequestId;
+    }
+
+    public WktWorkingTimeRequest(Integer workingTimeRequestId, int approvalId, String firstCheckIn, String lastCheckOut, String createdBy) {
+        this.workingTimeRequestId = workingTimeRequestId;
+        this.approvalId = approvalId;
+        this.firstCheckIn = firstCheckIn;
+        this.lastCheckOut = lastCheckOut;
+        this.createdBy = createdBy;
+    }
+
+    public Integer getWorkingTimeRequestId() {
+        return workingTimeRequestId;
+    }
+
+    public void setWorkingTimeRequestId(Integer workingTimeRequestId) {
+        this.workingTimeRequestId = workingTimeRequestId;
+    }
+
+    public int getApprovalId() {
+        return approvalId;
+    }
+
+    public void setApprovalId(int approvalId) {
+        this.approvalId = approvalId;
+    }
+
+    public String getFirstCheckIn() {
+        return firstCheckIn;
+    }
+
+    public void setFirstCheckIn(String firstCheckIn) {
+        this.firstCheckIn = firstCheckIn;
+    }
+
+    public String getLastCheckOut() {
+        return lastCheckOut;
+    }
+
+    public void setLastCheckOut(String lastCheckOut) {
+        this.lastCheckOut = lastCheckOut;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public Timestamp getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Timestamp createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public Timestamp getUpdatedDate() {
+        return updatedDate;
+    }
+
+    public void setUpdatedDate(Timestamp updatedDate) {
+        this.updatedDate = updatedDate;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public String getUpdatedBy() {
+        return updatedBy;
+    }
+
+    public void setUpdatedBy(String updatedBy) {
+        this.updatedBy = updatedBy;
+    }
+
+    public WktWorkingTime getWktWorkingTime() {
+        return wktWorkingTime;
+    }
+
+    public void setWktWorkingTime(WktWorkingTime wktWorkingTime) {
+        this.wktWorkingTime = wktWorkingTime;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (workingTimeRequestId != null ? workingTimeRequestId.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof WktWorkingTimeRequest)) {
+            return false;
+        }
+        WktWorkingTimeRequest other = (WktWorkingTimeRequest) object;
+        if ((this.workingTimeRequestId == null && other.workingTimeRequestId != null) || (this.workingTimeRequestId != null && !this.workingTimeRequestId.equals(other.workingTimeRequestId))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "hrm.WktWorkingTimeRequest[ workingTimeRequestId=" + workingTimeRequestId + " ]";
+    }
+    
+}

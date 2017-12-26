@@ -1,0 +1,16 @@
+package com.minori.hrm.services;
+
+import java.util.List;
+import java.util.Optional;
+
+import com.minori.hrm.models.MasterLeaveReason;
+
+public interface MasterLeaveReasonService {
+	
+	public void init();
+	
+	public List<MasterLeaveReason> getAllLeaveReason();
+	
+	public Optional<MasterLeaveReason> findLeaveReason(int leaveReasonId);
+
+}

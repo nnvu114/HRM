@@ -1,0 +1,52 @@
+package com.minori.hrm.converter;
+
+import java.util.Optional;
+
+import com.minori.hrm.dto.CreateTimeOffDto;
+import com.minori.hrm.form.CreateTimeOffForm;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import com.minori.hrm.exception.HrmException;
+import com.minori.hrm.models.User;
+import com.minori.hrm.models.WktLeaveRequest;
+import com.minori.hrm.services.MasterLeaveReasonService;
+import com.minori.hrm.utils.HrmStatusCode;
+
+@Component
+public class TimeOffConverter {
+	
+	@Autowired
+	private MasterLeaveReasonService masterLeaveReasonService;
+
+	public WktLeaveRequest convertEntity(CreateTimeOffForm request, User user){
+		WktLeaveRequest entity = new WktLeaveRequest();
+		entity.setEmployee(user.getEmployee());
+		entity.setRequestType(request.getRequestType());
+		entity.setMasterLeaveReason(masterLeaveReasonService.findLeaveReason(request.getRequestType()).orElseThrow(()-> new HrmException(HrmStatusCode.ERROR)));
+		entity.setDuration(3.6f);
+		entity.setReasonDes(request.getReasonDes());
+		entity.setApprovedBy("khanhnm");
+		entity.setAppraiserId(request.getAppraiserId());
+		entity.setCreatedBy(user.getUsername());
+		entity.setStatus(request.getStatus());
+		return entity; 
+	}
+	
+	public Optional<CreateTimeOffDto> convertCreateTimeOffResponse(WktLeaveRequest result) {
+		if (null == result) {
+			Optional.empty();
+		}
+		CreateTimeOffDto response = new CreateTimeOffDto();
+		response.setAppraiserId(result.getAppraiserId());
+		response.setCreatedBy(result.getCreatedBy());
+		response.setCreatedDate(result.getCreatedDate());
+		response.setEmployeeId(result.getEmployee().getEmployeeId());
+		response.setEndLeaveDate(null==result.getEndLeaveDate()?null:result.getEndLeaveDate().getTime());
+		response.setReasonDes(result.getReasonDes());
+		response.setRequestType(result.getMasterLeaveReason().getLeaveReasonId());
+		response.setStartLeaveDate(null==result.getStartLeaveDate()?null:result.getStartLeaveDate().getTime());
+		response.setStatus(result.getStatus());
+		return Optional.of(response);
+	}
+}

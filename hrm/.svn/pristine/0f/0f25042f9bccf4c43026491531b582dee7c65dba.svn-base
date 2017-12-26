@@ -1,0 +1,12 @@
+package com.minori.hrm.repositorys;
+
+
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
+
+import com.minori.hrm.models.EpmGroup;
+
+@Repository
+public interface GroupRepository extends CrudRepository<EpmGroup, Integer> {
+	EpmGroup findByGroupId(Integer groupId);
+}

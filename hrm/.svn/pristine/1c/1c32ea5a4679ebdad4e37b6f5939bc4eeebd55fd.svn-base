@@ -1,0 +1,25 @@
+package com.minori.hrm.converter;
+
+import org.springframework.stereotype.Component;
+
+import com.minori.hrm.models.MasterLeaveReason;
+import com.minori.hrm.models.User;
+import com.minori.hrm.models.WktLeaveRequest;
+import com.minori.hrm.request.CreateTimeOffRequest;
+
+@Component
+public class TimeOffConverter {
+
+	public WktLeaveRequest convertEntity(CreateTimeOffRequest request, User user,MasterLeaveReason masterLeaveReson) {
+		WktLeaveRequest entity = new WktLeaveRequest();
+		entity.setEmployee(user.getEmployee());
+		entity.setRequestType(request.getRequestType());
+		entity.setMasterLeaveReason(masterLeaveReson);
+		entity.setDuration(22);
+		entity.setReasonDes(request.getReasonDes());
+		entity.setApprovedBy("KhanhNM");
+		entity.setCreatedBy(user.getUsername());
+		entity.setStatus(request.getStatus());
+		return entity; 
+	}
+}

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/hrm.iml" filepath="$PROJECT_DIR$/.idea/modules/hrm.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/hrm_main.iml" filepath="$PROJECT_DIR$/.idea/modules/hrm_main.iml" group="hrm" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/hrm_test.iml" filepath="$PROJECT_DIR$/.idea/modules/hrm_test.iml" group="hrm" />
+    </modules>
+  </component>
+</project>

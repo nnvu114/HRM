@@ -1,0 +1,237 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.minori.hrm.models;
+
+import java.io.Serializable;
+import java.sql.Timestamp;
+import java.util.List;
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+/**
+ *
+ * @author Admin
+ */
+@Entity
+@Table(name = "rcm_recruitment_plan")
+@NamedQueries({
+    @NamedQuery(name = "RcmRecruitmentPlan.findAll", query = "SELECT r FROM RcmRecruitmentPlan r")})
+public class RcmRecruitmentPlan implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    
+    @Column(name = "recruitment_id")
+    private Integer recruitmentId;
+    
+    @Column(name = "name")
+    private String name;
+    
+    @Column(name = "position_master_id")
+    private int positionMasterId;
+    
+    @Column(name = "quantity")
+    private int quantity;
+    
+    @Column(name = "status")
+    private int status;
+    @Column(name = "start_date")
+    
+    private Timestamp startDate;
+    
+    @Lob
+    @Column(name = "description")
+    private String description;
+    
+    @Column(name = "appraiser_id")
+    private int appraiserId;
+    @Column(name = "end_date")
+    
+    private Timestamp endDate;
+    @Column(name = "created_date")
+    
+    private Timestamp createdDate;
+    @Column(name = "updated_date")
+    
+    private Timestamp updatedDate;
+    
+    @Column(name = "created_by")
+    private String createdBy;
+    @Column(name = "updated_by")
+    private String updatedBy;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "rcmRecruitmentPlan", fetch = FetchType.LAZY)
+    private List<RcmCandidate> rcmCandidateList;
+
+    public RcmRecruitmentPlan() {
+    }
+
+    public RcmRecruitmentPlan(Integer recruitmentId) {
+        this.recruitmentId = recruitmentId;
+    }
+
+    public RcmRecruitmentPlan(Integer recruitmentId, String name, int positionMasterId, int quantity, int status, String description, int appraiserId, String createdBy) {
+        this.recruitmentId = recruitmentId;
+        this.name = name;
+        this.positionMasterId = positionMasterId;
+        this.quantity = quantity;
+        this.status = status;
+        this.description = description;
+        this.appraiserId = appraiserId;
+        this.createdBy = createdBy;
+    }
+
+    public Integer getRecruitmentId() {
+        return recruitmentId;
+    }
+
+    public void setRecruitmentId(Integer recruitmentId) {
+        this.recruitmentId = recruitmentId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getPositionMasterId() {
+        return positionMasterId;
+    }
+
+    public void setPositionMasterId(int positionMasterId) {
+        this.positionMasterId = positionMasterId;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public Timestamp getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Timestamp startDate) {
+        this.startDate = startDate;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public int getAppraiserId() {
+        return appraiserId;
+    }
+
+    public void setAppraiserId(int appraiserId) {
+        this.appraiserId = appraiserId;
+    }
+
+    public Timestamp getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Timestamp endDate) {
+        this.endDate = endDate;
+    }
+
+    public Timestamp getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Timestamp createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public Timestamp getUpdatedDate() {
+        return updatedDate;
+    }
+
+    public void setUpdatedDate(Timestamp updatedDate) {
+        this.updatedDate = updatedDate;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public String getUpdatedBy() {
+        return updatedBy;
+    }
+
+    public void setUpdatedBy(String updatedBy) {
+        this.updatedBy = updatedBy;
+    }
+
+    public List<RcmCandidate> getRcmCandidateList() {
+        return rcmCandidateList;
+    }
+
+    public void setRcmCandidateList(List<RcmCandidate> rcmCandidateList) {
+        this.rcmCandidateList = rcmCandidateList;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (recruitmentId != null ? recruitmentId.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof RcmRecruitmentPlan)) {
+            return false;
+        }
+        RcmRecruitmentPlan other = (RcmRecruitmentPlan) object;
+        if ((this.recruitmentId == null && other.recruitmentId != null) || (this.recruitmentId != null && !this.recruitmentId.equals(other.recruitmentId))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "hrm.RcmRecruitmentPlan[ recruitmentId=" + recruitmentId + " ]";
+    }
+    
+}

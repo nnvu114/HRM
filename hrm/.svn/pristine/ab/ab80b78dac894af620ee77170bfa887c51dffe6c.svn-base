@@ -1,0 +1,21 @@
+package com.minori.hrm.response;
+
+public class CreateTimeOffResponse {
+	
+	private Long employeeId;
+
+	/**
+	 * @return the employeeId
+	 */
+	public Long getEmployeeId() {
+		return employeeId;
+	}
+
+	/**
+	 * @param employeeId the employeeId to set
+	 */
+	public void setEmployeeId(Long employeeId) {
+		this.employeeId = employeeId;
+	}
+
+}

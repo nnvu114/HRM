@@ -1,0 +1,26 @@
+package com.minori.hrm.controllers;
+
+import org.springframework.http.HttpStatus;
+
+import com.minori.hrm.constant.Constant;
+import com.minori.hrm.constant.JsonResult;
+
+public abstract class AbStractController {
+	
+	public JsonResult buildJsonResult(int code, String message, Object data) {
+		JsonResult jsonResult = new JsonResult();
+		jsonResult.setCode(code);
+		jsonResult.setMessage(message);
+		jsonResult.setData(data);
+		return jsonResult;
+	}
+	
+	public<T> JsonResult toSuccess(T data) {
+		return buildJsonResult(HttpStatus.OK.value(), Constant.MSG_SUCCESS, data);
+	}
+	
+	public<T> JsonResult toFailed(T data) {
+		return buildJsonResult(HttpStatus.BAD_REQUEST.value(), Constant.MSG_BAD_REQUEST, data);
+	}
+
+}

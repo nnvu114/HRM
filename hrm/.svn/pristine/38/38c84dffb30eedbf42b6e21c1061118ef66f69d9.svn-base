@@ -1,0 +1,550 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.minori.hrm.models;
+
+
+import java.io.Serializable;
+import java.sql.Timestamp;
+import java.util.Set;
+import javax.persistence.*;
+
+/**
+ *
+ * @author Admin
+ */
+@Entity
+@Table(name = "employee")
+@NamedQueries({
+    @NamedQuery(name = "Employee.findAll", query = "SELECT e FROM Employee e")})
+public class Employee implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+    @Id
+    
+    @Column(name = "employee_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer employeeId;
+    
+    @Column(name = "first_name")
+    private String firstName;
+    
+    @Column(name = "last_name")
+    private String lastName;
+    
+    @Column(name = "email")
+    private String email;
+    @Column(name = "identity_card", nullable = true)
+    private String identityCard;
+    @Column(name = "national", nullable = true)
+    private String national;
+    
+    @Column(name = "gender")
+    private int gender;
+    @Column(name = "day_enjoy", nullable = true)
+    
+    private Timestamp dayEnjoy;
+    
+    @Column(name = "birthday", nullable = true)
+    
+    private Timestamp birthday;
+    
+    @Lob
+    @Column(name = "address")
+    private String address;
+    @Lob
+    @Column(name = "place_of_birth", nullable = true)
+    private String placeOfBirth;
+    
+    @Column(name = "married_status", nullable = true)
+    private short marriedStatus;
+    
+    @Column(name = "telephone", nullable = true)
+    private String telephone;
+    
+    @Column(name = "identification_id", nullable = true)
+    private String identificationId;
+    
+    @Column(name = "insurance_id", nullable = true)
+    private int insuranceId;
+    
+    @Column(name = "insurance_des", nullable = true)
+    private String insuranceDes;
+    
+    @Column(name = "status", nullable = true)
+    private int status;
+    @Lob
+    @Column(name = "skill_description", nullable = true)
+    private String skillDescription;
+    @Column(name = "leave_paid_remain", nullable = true)
+    private Integer leavePaidRemain;
+    @Lob
+    @Column(name = "photo", nullable = true)
+    private String photo;
+    @Column(name = "blood_group", nullable = true)
+    private String bloodGroup;
+    @Column(name = "created_date", nullable = true)
+    
+    private Timestamp createdDate;
+    @Column(name = "updated_date", nullable = true)
+    
+    private Timestamp updatedDate;
+    
+    @Column(name = "created_by", nullable = true)
+    private String createdBy;
+    @Column(name = "updated_by", nullable = true)
+    private String updatedBy;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee", fetch = FetchType.LAZY)
+    private Set<PrmPayroll> prmPayrollSet;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee", fetch = FetchType.LAZY)
+    private Set<EpmAllowance> epmAllowanceSet;
+    @JoinColumn(name = "group_id", referencedColumnName = "group_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private EpmGroup epmGroup;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee", fetch = FetchType.LAZY)
+    private Set<EpmContract> epmContractSet;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee", fetch = FetchType.LAZY)
+    private Set<EvlKpiResult> evlKpiResultSet;
+    @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY)
+    private Set<TnmInformTraining> tnmInformTrainingSet;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee", fetch = FetchType.LAZY)
+    private Set<EpmExperience> epmExperienceSet;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee", fetch = FetchType.LAZY)
+    private Set<Users> usersSet;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee", fetch = FetchType.LAZY)
+    private Set<EpmAwardEmployee> epmAwardEmployeeSet;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee", fetch = FetchType.LAZY)
+    private Set<PrmPayrollHistory> prmPayrollHistorySet;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee", fetch = FetchType.LAZY)
+    private Set<EvlEvaluation> evlEvaluationSet;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee", fetch = FetchType.LAZY)
+    private Set<EpmMedicalRecords> epmMedicalRecordsSet;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee", fetch = FetchType.LAZY)
+    private Set<EpmPosition> epmPositionSet;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee", fetch = FetchType.LAZY)
+    private Set<EpmRelationship> epmRelationshipSet;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee", fetch = FetchType.LAZY)
+    private Set<EpmCetification> epmCetificationSet;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee", fetch = FetchType.LAZY)
+    private Set<WktLeaveRequest> wktLeaveRequestSet;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee", fetch = FetchType.LAZY)
+    private Set<EpmDeduction> epmDeductionSet;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee", fetch = FetchType.LAZY)
+    private Set<RcmCandidateCalendar> rcmCandidateCalendarSet;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee", fetch = FetchType.LAZY)
+    private Set<WktOvertimeRequest> wktOvertimeRequestSet;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee", fetch = FetchType.LAZY)
+    private Set<WktWorkingTime> wktWorkingTimeSet;
+
+    public Employee() {
+    }
+
+    public Employee(Integer employeeId) {
+        this.employeeId = employeeId;
+    }
+
+    public Employee(Integer employeeId, String firstName, String lastName, String email, int gender, Timestamp birthday, String address, short marriedStatus, int countryId, String telephone, String identificationId, int insuranceId, String insuranceDes, int status, String createdBy) {
+        this.employeeId = employeeId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.gender = gender;
+        this.birthday = birthday;
+        this.address = address;
+        this.marriedStatus = marriedStatus;
+        this.telephone = telephone;
+        this.identificationId = identificationId;
+        this.insuranceId = insuranceId;
+        this.insuranceDes = insuranceDes;
+        this.status = status;
+        this.createdBy = createdBy;
+    }
+
+    public Integer getEmployeeId() {
+        return employeeId;
+    }
+
+    public void setEmployeeId(Integer employeeId) {
+        this.employeeId = employeeId;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getIdentityCard() {
+        return identityCard;
+    }
+
+    public void setIdentityCard(String identityCard) {
+        this.identityCard = identityCard;
+    }
+
+    public String getNational() {
+        return national;
+    }
+
+    public void setNational(String national) {
+        this.national = national;
+    }
+
+    public int getGender() {
+        return gender;
+    }
+
+    public void setGender(int gender) {
+        this.gender = gender;
+    }
+
+    public Timestamp getDayEnjoy() {
+        return dayEnjoy;
+    }
+
+    public void setDayEnjoy(Timestamp dayEnjoy) {
+        this.dayEnjoy = dayEnjoy;
+    }
+
+    public Timestamp getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Timestamp birthday) {
+        this.birthday = birthday;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getPlaceOfBirth() {
+        return placeOfBirth;
+    }
+
+    public void setPlaceOfBirth(String placeOfBirth) {
+        this.placeOfBirth = placeOfBirth;
+    }
+
+    public short getMarriedStatus() {
+        return marriedStatus;
+    }
+
+    public void setMarriedStatus(short marriedStatus) {
+        this.marriedStatus = marriedStatus;
+    }
+
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
+
+    public String getIdentificationId() {
+        return identificationId;
+    }
+
+    public void setIdentificationId(String identificationId) {
+        this.identificationId = identificationId;
+    }
+
+    public int getInsuranceId() {
+        return insuranceId;
+    }
+
+    public void setInsuranceId(int insuranceId) {
+        this.insuranceId = insuranceId;
+    }
+
+    public String getInsuranceDes() {
+        return insuranceDes;
+    }
+
+    public void setInsuranceDes(String insuranceDes) {
+        this.insuranceDes = insuranceDes;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public String getSkillDescription() {
+        return skillDescription;
+    }
+
+    public void setSkillDescription(String skillDescription) {
+        this.skillDescription = skillDescription;
+    }
+
+    public Integer getLeavePaidRemain() {
+        return leavePaidRemain;
+    }
+
+    public void setLeavePaidRemain(Integer leavePaidRemain) {
+        this.leavePaidRemain = leavePaidRemain;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
+    public String getBloodGroup() {
+        return bloodGroup;
+    }
+
+    public void setBloodGroup(String bloodGroup) {
+        this.bloodGroup = bloodGroup;
+    }
+
+    public Timestamp getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Timestamp createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public Timestamp getUpdatedDate() {
+        return updatedDate;
+    }
+
+    public void setUpdatedDate(Timestamp updatedDate) {
+        this.updatedDate = updatedDate;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public String getUpdatedBy() {
+        return updatedBy;
+    }
+
+    public void setUpdatedBy(String updatedBy) {
+        this.updatedBy = updatedBy;
+    }
+
+    public Set<PrmPayroll> getPrmPayrollSet() {
+        return prmPayrollSet;
+    }
+
+    public void setPrmPayrollSet(Set<PrmPayroll> prmPayrollSet) {
+        this.prmPayrollSet = prmPayrollSet;
+    }
+
+    public Set<EpmAllowance> getEpmAllowanceSet() {
+        return epmAllowanceSet;
+    }
+
+    public void setEpmAllowanceSet(Set<EpmAllowance> epmAllowanceSet) {
+        this.epmAllowanceSet = epmAllowanceSet;
+    }
+
+    public EpmGroup getEpmGroup() {
+        return epmGroup;
+    }
+
+    public void setEpmGroup(EpmGroup epmGroup) {
+        this.epmGroup = epmGroup;
+    }
+
+    public Set<EpmContract> getEpmContractSet() {
+        return epmContractSet;
+    }
+
+    public void setEpmContractSet(Set<EpmContract> epmContractSet) {
+        this.epmContractSet = epmContractSet;
+    }
+
+    public Set<EvlKpiResult> getEvlKpiResultSet() {
+        return evlKpiResultSet;
+    }
+
+    public void setEvlKpiResultSet(Set<EvlKpiResult> evlKpiResultSet) {
+        this.evlKpiResultSet = evlKpiResultSet;
+    }
+
+    public Set<TnmInformTraining> getTnmInformTrainingSet() {
+        return tnmInformTrainingSet;
+    }
+
+    public void setTnmInformTrainingSet(Set<TnmInformTraining> tnmInformTrainingSet) {
+        this.tnmInformTrainingSet = tnmInformTrainingSet;
+    }
+
+    public Set<EpmExperience> getEpmExperienceSet() {
+        return epmExperienceSet;
+    }
+
+    public void setEpmExperienceSet(Set<EpmExperience> epmExperienceSet) {
+        this.epmExperienceSet = epmExperienceSet;
+    }
+
+    public Set<Users> getUsersSet() {
+        return usersSet;
+    }
+
+    public void setUsersSet(Set<Users> usersSet) {
+        this.usersSet = usersSet;
+    }
+
+    public Set<EpmAwardEmployee> getEpmAwardEmployeeSet() {
+        return epmAwardEmployeeSet;
+    }
+
+    public void setEpmAwardEmployeeSet(Set<EpmAwardEmployee> epmAwardEmployeeSet) {
+        this.epmAwardEmployeeSet = epmAwardEmployeeSet;
+    }
+
+    public Set<PrmPayrollHistory> getPrmPayrollHistorySet() {
+        return prmPayrollHistorySet;
+    }
+
+    public void setPrmPayrollHistorySet(Set<PrmPayrollHistory> prmPayrollHistorySet) {
+        this.prmPayrollHistorySet = prmPayrollHistorySet;
+    }
+
+    public Set<EvlEvaluation> getEvlEvaluationSet() {
+        return evlEvaluationSet;
+    }
+
+    public void setEvlEvaluationSet(Set<EvlEvaluation> evlEvaluationSet) {
+        this.evlEvaluationSet = evlEvaluationSet;
+    }
+
+    public Set<EpmMedicalRecords> getEpmMedicalRecordsSet() {
+        return epmMedicalRecordsSet;
+    }
+
+    public void setEpmMedicalRecordsSet(Set<EpmMedicalRecords> epmMedicalRecordsSet) {
+        this.epmMedicalRecordsSet = epmMedicalRecordsSet;
+    }
+
+    public Set<EpmPosition> getEpmPositionSet() {
+        return epmPositionSet;
+    }
+
+    public void setEpmPositionSet(Set<EpmPosition> epmPositionSet) {
+        this.epmPositionSet = epmPositionSet;
+    }
+
+    public Set<EpmRelationship> getEpmRelationshipSet() {
+        return epmRelationshipSet;
+    }
+
+    public void setEpmRelationshipSet(Set<EpmRelationship> epmRelationshipSet) {
+        this.epmRelationshipSet = epmRelationshipSet;
+    }
+
+    public Set<EpmCetification> getEpmCetificationSet() {
+        return epmCetificationSet;
+    }
+
+    public void setEpmCetificationSet(Set<EpmCetification> epmCetificationSet) {
+        this.epmCetificationSet = epmCetificationSet;
+    }
+
+    public Set<WktLeaveRequest> getWktLeaveRequestSet() {
+        return wktLeaveRequestSet;
+    }
+
+    public void setWktLeaveRequestSet(Set<WktLeaveRequest> wktLeaveRequestSet) {
+        this.wktLeaveRequestSet = wktLeaveRequestSet;
+    }
+
+    public Set<EpmDeduction> getEpmDeductionSet() {
+        return epmDeductionSet;
+    }
+
+    public void setEpmDeductionSet(Set<EpmDeduction> epmDeductionSet) {
+        this.epmDeductionSet = epmDeductionSet;
+    }
+
+    public Set<RcmCandidateCalendar> getRcmCandidateCalendarSet() {
+        return rcmCandidateCalendarSet;
+    }
+
+    public void setRcmCandidateCalendarSet(Set<RcmCandidateCalendar> rcmCandidateCalendarSet) {
+        this.rcmCandidateCalendarSet = rcmCandidateCalendarSet;
+    }
+
+    public Set<WktOvertimeRequest> getWktOvertimeRequestSet() {
+        return wktOvertimeRequestSet;
+    }
+
+    public void setWktOvertimeRequestSet(Set<WktOvertimeRequest> wktOvertimeRequestSet) {
+        this.wktOvertimeRequestSet = wktOvertimeRequestSet;
+    }
+
+    public Set<WktWorkingTime> getWktWorkingTimeSet() {
+        return wktWorkingTimeSet;
+    }
+
+    public void setWktWorkingTimeSet(Set<WktWorkingTime> wktWorkingTimeSet) {
+        this.wktWorkingTimeSet = wktWorkingTimeSet;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (employeeId != null ? employeeId.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Employee)) {
+            return false;
+        }
+        Employee other = (Employee) object;
+        if ((this.employeeId == null && other.employeeId != null) || (this.employeeId != null && !this.employeeId.equals(other.employeeId))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "entity.Employee[ employeeId=" + employeeId + " ]";
+    }
+    
+}

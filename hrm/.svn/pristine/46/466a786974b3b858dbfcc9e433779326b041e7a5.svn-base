@@ -1,0 +1,11 @@
+package com.minori.hrm.services;
+
+
+import com.minori.hrm.models.Employee;
+
+public interface EmployeeService {
+	
+	
+	Employee saveEmployee(Employee employee);
+	
+}

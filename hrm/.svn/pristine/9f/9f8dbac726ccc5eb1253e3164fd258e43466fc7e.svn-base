@@ -1,0 +1,49 @@
+package com.minori.hrm.services.impl;
+
+
+import com.minori.hrm.models.Users;
+import com.minori.hrm.repositorys.UserRepository;
+
+import com.minori.hrm.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+
+@Component
+@Service("userService")
+public class UserServiceImpl implements UserService {
+
+	@Autowired
+	private UserRepository userRepository;
+
+	@Override
+	public Users findByUserName(String username) {
+		return userRepository.findByUsername(username);
+	}
+
+	@Override
+	public Users saveUser(Users user) {
+		return userRepository.save(user);
+	}
+
+	@Override
+	public int updateUsername(String username, int id) {
+		return userRepository.updateUsername(username, id);
+	}
+
+	@Override
+	public int updatePassword(String password, int id) {
+		return userRepository.updatePassword(password, id);
+	}
+
+	@Override
+	public int updateEnabled(boolean enabled, int id) {
+		return userRepository.updateEnabled(enabled, id);
+	}
+
+	@Override
+	public void deleteUserById(int id) {
+		userRepository.delete(id);
+	}
+
+}

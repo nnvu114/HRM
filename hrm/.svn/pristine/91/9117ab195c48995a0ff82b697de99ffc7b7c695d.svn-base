@@ -1,0 +1,33 @@
+package com.minori.hrm.exception;
+
+import com.minori.hrm.utils.CodeEnum;
+
+public class HrmException extends RuntimeException {
+	
+	private Integer code;
+	
+	public HrmException(Integer code,String message) {
+		super(message);
+		this.code = code;
+	}
+	
+	public HrmException(CodeEnum codeEnum) {
+		super(codeEnum.getMessage());
+		this.code = codeEnum.getCode();
+	}
+
+	/**
+	 * @return the code
+	 */
+	public Integer getCode() {
+		return code;
+	}
+
+	/**
+	 * @param code the code to set
+	 */
+	public void setCode(Integer code) {
+		this.code = code;
+	}	
+
+}

@@ -1,0 +1,38 @@
+package com.minori.hrm.controllers;
+
+import com.minori.hrm.form.TimeOffForm;
+import com.minori.hrm.models.AccountCredentials;
+import com.minori.hrm.utils.JsonResult;
+import com.minori.hrm.services.TimeOffService;
+import com.minori.hrm.validators.TimeOffValidate;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/api/time-off")
+public class TimeOffController extends AbStractController {
+
+	@Autowired
+	private TimeOffService service;
+
+	@Autowired
+	private TimeOffValidate timeOffValidate;
+
+	@PostMapping(value = "/create")
+	@PreAuthorize("hasAuthority('ROLE_ADMIN') or hasAuthority('ROLE_USER')")
+	public JsonResult create(@RequestBody TimeOffForm request, Authentication auth) {
+		return runService(request, service::createTimeOff, timeOffValidate::validateCreateTimeOff);
+	}
+
+	@PostMapping(value = "/update")
+	@PreAuthorize("hasAuthority('ROLE_ADMIN') or hasAuthority('ROLE_USER')")
+	public JsonResult updateTimeOff(@RequestBody TimeOffForm request, AccountCredentials auth) {
+		return runService(request, service::editTimeOff, timeOffValidate::validateEditTimeOff);
+	}
+}

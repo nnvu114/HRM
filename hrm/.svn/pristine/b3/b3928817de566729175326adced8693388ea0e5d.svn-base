@@ -1,0 +1,44 @@
+package com.minori.hrm.services.impl;
+
+
+import com.minori.hrm.dto.CreateTimeOffDto;
+import com.minori.hrm.form.CreateTimeOffForm;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import com.minori.hrm.converter.TimeOffConverter;
+import com.minori.hrm.models.User;
+import com.minori.hrm.models.WktLeaveRequest;
+import com.minori.hrm.repositorys.MasterLeaveReasonRepository;
+import com.minori.hrm.repositorys.UserRepository;
+import com.minori.hrm.repositorys.WktLeaveRequestRepository;
+import com.minori.hrm.services.TimeOffService;
+
+import java.util.Optional;
+
+@Component
+public class TimeOffServiceImpl implements TimeOffService{
+	
+	@Autowired
+	private UserRepository userRepository;
+	
+	@Autowired
+	private TimeOffConverter timeOffConverter;
+	
+	@Autowired
+	private MasterLeaveReasonRepository masterLeaveResonRepository;
+	
+	@Autowired
+	private WktLeaveRequestRepository wktleaveRequestRepository;
+	
+	@Override
+	public Optional<CreateTimeOffDto> createTimeOff(CreateTimeOffForm request){
+		User user = userRepository.findByUsername(request.getUserName());
+		WktLeaveRequest result = wktleaveRequestRepository.save(timeOffConverter.convertEntity(request, user));
+		
+		Optional<CreateTimeOffDto> response = timeOffConverter.convertCreateTimeOffResponse(result);
+		
+		return response;
+	}
+
+}

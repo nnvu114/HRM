@@ -1,0 +1,24 @@
+package com.minori.hrm.constant;
+
+/**
+ * Created by VINH_IT on 12/11/2017.
+ */
+public final class Constant {
+	public final class AppRole {
+		public static final String ROLE_ADMIN = "ROLE_ADMIN";
+		public static final String ROLE_HR = "ROLE_HR";
+		public static final String ROLE_MANAGER = "ROLE_MANAGER";
+		public static final String ROLE_TRAINER = "ROLE_TRAINER";
+		public static final String ROLE_LEADER = "ROLE_LEADER";
+		public static final String ROLE_EMPLOYEE = "ROLE_EMPLOYEE";
+	}
+	
+	public static final String MSG_SUCCESS = "success";
+	
+	// Please use between 0 and 30 characters.
+	public static final String INVALID = "001";
+	
+	public static final String MSG_BAD_REQUEST = "Bad request";
+	
+	public static final String SPACE  = "";
+}
